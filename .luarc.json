@@ -1,0 +1,23 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "Lua.workspace.library": [
+        "/Users/vadim/.config/nvim",
+        "/Users/vadim/.local/share/nvim/site",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/LuaSnip",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/neogit",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/nord.nvim",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/packer.nvim",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+        "/usr/local/Cellar/neovim/0.8.1/share/nvim/runtime",
+        "/usr/local/Cellar/neovim/0.8.1/lib/nvim",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp/after",
+        "/Users/vadim/.local/share/nvim/site/pack/packer/start/cmp_luasnip/after",
+        "${3rd}/luassert/library"
+    ]
+}
