@@ -30,6 +30,9 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+-- always write
+vim.opt.autowriteall = true
+
 -- keybinds
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader>g', '<cmd>Neogit<cr>')
@@ -37,8 +40,47 @@ vim.keymap.set('n', '<leader>g', '<cmd>Neogit<cr>')
 -- packages (auto bootstrap)
 require 'plugins'
 
+-- modern save behavior
+require('nvim-lastplace').setup {}
+
 -- better ui
 require("dressing").setup()
+
+require('nvim-cursorline').setup {
+    cursorline = {
+        enable = true,
+        timeout = 1000,
+        number = false,
+    },
+    cursorword = {
+        enable = true,
+        min_length = 3,
+        hl = { underline = true },
+    }
+}
+
+local wilder = require("wilder")
+wilder.setup({ modes = { ':', '/', '?' } })
+wilder.set_option('renderer', wilder.popupmenu_renderer(
+    wilder.popupmenu_border_theme({
+        highlighter = wilder.basic_highlighter(),
+        min_width = '100%', -- minimum height of the popupmenu, can also be a number
+        min_height = '5%', -- to set a fixed height, set max_height to the same value
+        reverse = 0, -- if 1, shows the candidates from bottom to top
+        left = { ' ', wilder.popupmenu_devicons() },
+        right = { ' ', wilder.popupmenu_scrollbar() },
+    })
+))
+
+vim.cmd [[
+    augroup ScrollbarInit
+        autocmd!
+        autocmd WinScrolled,VimResized,QuitPre * silent! lua require('scrollbar').show()
+        autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()
+        autocmd WinLeave,BufLeave,BufWinLeave,FocusLost            * silent! lua require('scrollbar').clear()
+    augroup end
+]]
+
 
 -- fast movement
 require("leap").setup {}
@@ -148,6 +190,8 @@ require('neogit').setup {
         diffview = true
     }
 }
+require("gitsigns").setup()
+require('git-conflict').setup()
 
 -- tabs
 require('bufferline').setup()
@@ -365,25 +409,12 @@ cmp.setup {
 -- telescope setup
 require('telescope').setup()
 require('telescope').load_extension('fzf')
+require("cheatsheet").setup({})
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-
--- image preview
-require('image').setup {
-    render = {
-        min_padding = 5,
-        show_label = true,
-        use_dither = true,
-        foreground_color = false,
-        background_color = false
-    },
-    events = {
-        update_on_nvim_resize = true,
-    },
-}
 
 -- custom commands
 vim.api.nvim_create_user_command('EditConfig', 'edit $MYVIMRC', {})

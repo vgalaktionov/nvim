@@ -22,6 +22,9 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use "stevearc/dressing.nvim"
+    use 'Xuyuanp/scrollbar.nvim'
+    use "gelguy/wilder.nvim"
+    use "ethanholz/nvim-lastplace"
     use {
         "ggandor/leap.nvim",
         requires = {
@@ -47,6 +50,7 @@ return require('packer').startup(function(use)
     use 'terrortylor/nvim-comment'
     use "lukas-reineke/indent-blankline.nvim"
     use "windwp/nvim-autopairs"
+    use "jghauser/mkdir.nvim"
     use {
         'nvim-tree/nvim-tree.lua',
         requires = {
@@ -61,6 +65,9 @@ return require('packer').startup(function(use)
             'sindrets/diffview.nvim'
         }
     }
+    use { 'akinsho/git-conflict.nvim', tag = "*" }
+    use 'lewis6991/gitsigns.nvim'
+    use 'yamatsum/nvim-cursorline'
     use {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
@@ -84,11 +91,13 @@ return require('packer').startup(function(use)
     }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use {
-        'samodostal/image.nvim',
+        'sudormrfbin/cheatsheet.nvim',
+
         requires = {
-            'nvim-lua/plenary.nvim',
-            'm00qek/baleia.nvim'
-        },
+            { 'nvim-telescope/telescope.nvim' },
+            { 'nvim-lua/popup.nvim' },
+            { 'nvim-lua/plenary.nvim' }
+        }
     }
 
     -- Automatically set up your configuration after cloning packer.nvim
