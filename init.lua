@@ -32,14 +32,17 @@ vim.opt.expandtab = true
 
 -- keybinds
 vim.g.mapleader = ' '
-vim.keymap.set('n', '<leader>w', '<cmd>write<cr>')
-vim.keymap.set('n', '<leader>q', '<cmd>quit!<cr>')
+vim.keymap.set('n', '<leader>g', '<cmd>Neogit<cr>')
 
 -- packages (auto bootstrap)
 require 'plugins'
 
 -- better ui
 require("dressing").setup()
+
+-- fast movement
+require("leap").setup {}
+require("leap").add_default_mappings()
 
 -- session support
 require('session_manager').setup {}
@@ -68,6 +71,7 @@ require("headlines").setup({
         codeblock_highlight = "CodeBlock",
         dash_highlight = "Dash",
         quote_highlight = "Quote",
+        fat_headlines = false
     },
 })
 
@@ -137,6 +141,7 @@ require('lualine').setup {
 
 -- git integration
 require('neogit').setup {
+    kind = "tab",
     disable_commit_confirmation = true,
     disable_insert_on_commit = false,
     integrations = {

@@ -23,6 +23,12 @@ return require('packer').startup(function(use)
 
     use "stevearc/dressing.nvim"
     use {
+        "ggandor/leap.nvim",
+        requires = {
+            "tpope/vim-repeat"
+        }
+    }
+    use {
         "Shatur/neovim-session-manager",
         requires = {
             'nvim-lua/plenary.nvim'
