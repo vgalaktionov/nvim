@@ -55,6 +55,11 @@ require('nvim-tree').setup {
   }
 }
 
+require('neogit').setup {
+  disable_commit_confirmation = true,
+  disable_insert_on_commit = false
+}
+
 -- lsp and completion
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
