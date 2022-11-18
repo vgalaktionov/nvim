@@ -36,8 +36,15 @@ vim.opt.autowriteall = true
 -- keybinds
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader>g', '<cmd>Neogit<cr>')
+vim.keymap.set('n', 'd', '"dd', { remap = false })
+vim.keymap.set('n', 'D', '"dD', { remap = false })
+vim.keymap.set('n', 'dd', '"ddd', { remap = false })
+vim.keymap.set('n', 'x', '"_x', { remap = false })
+vim.keymap.set('n', '<leader>p', '"dp', { remap = false })
+vim.keymap.set('n', '<leader>P', '"dP', { remap = false })
 
 -- packages (auto bootstrap)
+
 require 'plugins'
 
 -- modern save behavior
