@@ -291,10 +291,18 @@ lspconfig.sumneko_lua.setup {
     },
     on_attach = on_attach
 }
-lspconfig.pyright.setup {
+lspconfig.pylsp.setup {
     on_attach = on_attach,
     settings = {
-        capabilities = capabilities
+        capabilities = capabilities,
+        pylsp = {
+            plugins = {
+                pycodestyle = {
+                    ignore = { 'W391' },
+                    maxLineLength = 100
+                }
+            }
+        }
     }
 }
 lspconfig.tsserver.setup {
@@ -311,12 +319,14 @@ lspconfig.gopls.setup {
     }
 
 }
-lspconfig.marksman.setup {
-    on_attach = on_attach,
-    settings = {
-        capabilities = capabilities
+if not string.find(vim.fn.system('uname -a'), 'raspberrypi') then
+    lspconfig.marksman.setup {
+        on_attach = on_attach,
+        settings = {
+            capabilities = capabilities
+        }
     }
-}
+end
 lspconfig.bashls.setup {
     on_attach = on_attach,
     settings = {
@@ -353,12 +363,14 @@ lspconfig.dockerls.setup {
         capabilities = capabilities
     }
 }
-lspconfig.clangd.setup {
-    on_attach = on_attach,
-    settings = {
-        capabilities = capabilities
+if not string.find(vim.fn.system('uname -a'), 'raspberrypi') then
+    lspconfig.clangd.setup {
+        on_attach = on_attach,
+        settings = {
+            capabilities = capabilities
+        }
     }
-}
+end
 lspconfig.rust_analyzer.setup {
     on_attach = on_attach,
     -- Server-specific settings...
@@ -435,5 +447,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
-    command = [[lua vim.lsp.buf.formatting_sync()]],
+    command = [[lua vim.lsp.buf.format({
+        async = false,
+        timeout_ms = 5000
+    })]],
 })
