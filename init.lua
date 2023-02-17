@@ -97,11 +97,10 @@ require("leap").add_default_mappings()
 require('session_manager').setup {}
 
 -- theme
-vim.g.nord_italic = false
-vim.g.nord_disable_background = true
-
-require('nord').set()
-vim.cmd 'colorscheme nord'
+require('monokai-pro').setup({
+    filter = 'octagon'
+})
+vim.cmd 'colorscheme monokai-pro'
 
 -- css colors
 require("colorizer").setup()
@@ -175,13 +174,16 @@ require('nvim-tree').setup {
     update_focused_file = {
         enable = true,
         update_root = true
+    },
+    view = {
+        width = 40
     }
 }
 
 -- statusline
 require('lualine').setup {
     options = {
-        theme = 'nord', -- lualine theme
+        theme = 'monokai-pro', -- lualine theme
         component_separators = '',
         section_separators = '',
         disabled_filetypes = { 'packer', 'NvimTree' }
@@ -201,7 +203,11 @@ require("gitsigns").setup()
 require('git-conflict').setup()
 
 -- tabs
-require('bufferline').setup()
+require('bufferline').setup {
+    options = {
+        mode = "tabs"
+    }
+}
 
 local nvim_tree_events = require('nvim-tree.events')
 local bufferline_api = require('bufferline.api')
@@ -295,12 +301,13 @@ lspconfig.pylsp.setup {
     on_attach = on_attach,
     settings = {
         capabilities = capabilities,
+        configurationSources = { 'flake8' },
         pylsp = {
             plugins = {
-                pycodestyle = {
-                    ignore = { 'W391' },
-                    maxLineLength = 100
-                }
+                pylint = { enabled = false },
+                flake8 = { enabled = true },
+                pycodestyle = { enabled = false },
+                pyflakes = { enabled = false },
             }
         }
     }
@@ -319,6 +326,12 @@ lspconfig.gopls.setup {
     }
 
 }
+lspconfig.graphql.setup {
+    on_attach = on_attach,
+    settings = {
+        capabilities = capabilities
+    }
+}
 if not string.find(vim.fn.system('uname -a'), 'raspberrypi') then
     lspconfig.marksman.setup {
         on_attach = on_attach,
@@ -328,6 +341,12 @@ if not string.find(vim.fn.system('uname -a'), 'raspberrypi') then
     }
 end
 lspconfig.bashls.setup {
+    on_attach = on_attach,
+    settings = {
+        capabilities = capabilities
+    }
+}
+lspconfig.bufls.setup {
     on_attach = on_attach,
     settings = {
         capabilities = capabilities
@@ -434,6 +453,8 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fs', builtin.lsp_definitions, {})
+vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
 
 -- custom commands
 vim.api.nvim_create_user_command('EditConfig', 'edit $MYVIMRC', {})

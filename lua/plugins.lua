@@ -46,7 +46,14 @@ return require('packer').startup(function(use)
     }
     use "lukas-reineke/headlines.nvim"
     use 'norcalli/nvim-colorizer.lua'
-    use 'shaunsingh/nord.nvim'
+    use {
+        "loctvl842/monokai-pro.nvim",
+        config = function()
+            require("monokai-pro").setup({
+                filter = "octagon"
+            })
+        end
+    }
     use 'terrortylor/nvim-comment'
     use "lukas-reineke/indent-blankline.nvim"
     use "windwp/nvim-autopairs"
